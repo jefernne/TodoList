@@ -11,10 +11,18 @@ import CardTask from "./componentsApp/CardTask";
 import TopNavigation from "./componentsApp/TopNavigation";
 
 export const AllTasks = () => {
-  const { getalltask, taskCollection, editTask, updateOrderTasks } =
-    useContext(TaskContext);
+  const {
+    getalltask,
+    taskCollection,
+    editTask,
+    Loaded,
+    updateOrderTasks,
+    GetDeletedTasks,
+    DeletedTasksCollection,
+  } = useContext(TaskContext);
   const [tasks, settasks] = useState([]);
   const [search, setsearch] = useState("");
+  const [Delets, setDelets] = useState(false);
   const [ActivateFilter, setActivateFilter] = useState(false);
   const [ActivateFilterOrder, setActivateFilterOder] = useState(false);
   const [Filter, setFilter] = useState("All");
@@ -50,13 +58,16 @@ export const AllTasks = () => {
     switch (Filter) {
       case "All":
         settasks(taskCollection);
+        setDelets(false);
         break;
+        
       case "Pending":
         settasks(
           taskCollection.filter((task) => {
             return task.State === false;
           })
         );
+        setDelets(false);
         break;
       case "Completed":
         settasks(
@@ -64,8 +75,18 @@ export const AllTasks = () => {
             return task.State;
           })
         );
+        setDelets(false);
+        break;
+      case "Deleted":
+        GetDeletedTasks();
+        if (Loaded === false) {
+          settasks(DeletedTasksCollection);
+          setDelets(true);
+        }
+
+        break;
     }
-  }, [Filter]);
+  }, [Filter, Loaded]);
 
   const FilterTask = (event) => {
     const value = event.target.value;
@@ -137,7 +158,7 @@ export const AllTasks = () => {
   };
 
   return (
-    <div className="w-1/2 bg-slate-50 p-6 rounded-lg border border-black ">
+    <div className=" w-full bg-slate-50 p-6 rounded-lg border border-black mt-8 lg:mt-0 lg:w-1/2 ">
       <TopNavigation
         ActivateFilter={ActivateFilter}
         ChangeValue={ChangeValue}
@@ -153,27 +174,30 @@ export const AllTasks = () => {
       ></TopNavigation>
 
       <div className="overflow-y-auto w-full h-5/6">
-        <DndContext
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={tasks.map((task) => task.idTask)}
-            strategy={verticalListSortingStrategy}
+        {tasks !== null ? (
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
           >
-            {tasks !== null
-              ? tasks.map((task) => {
-                  return (
-                    <CardTask
-                      task={task}
-                      editTask={editTask}
-                      key={task.idTask}
-                    ></CardTask>
-                  );
-                })
-              : null}
-          </SortableContext>
-        </DndContext>
+            <SortableContext
+              items={tasks.map((task) => task.idTask)}
+              strategy={verticalListSortingStrategy}
+            >
+              {tasks !== null
+                ? tasks.map((task) => {
+                    return (
+                      <CardTask
+                        task={task}
+                        Delets={Delets}
+                        editTask={editTask}
+                        key={task.idTask}
+                      ></CardTask>
+                    );
+                  })
+                : null}
+            </SortableContext>
+          </DndContext>
+        ) : null}
       </div>
     </div>
   );

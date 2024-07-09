@@ -8,7 +8,7 @@ export const ProfileTodoList = () => {
   return (
     <section className="h-full w-11/12 bg-slate-50">
       <Navauth></Navauth>
-      <div className="w-full h-5/6 bg-slate-50 flex flex-row justify-between">
+      <div className=" w-full flex flex-col lg:w-full lg:h-5/6  lg:flex lg:flex-row lg:justify-between">
         <AddTask></AddTask>
         <AllTasks></AllTasks>
       </div>

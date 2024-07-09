@@ -6,7 +6,7 @@ export const getUserTasks = async (req, res) => {
   const { idUser } = User;
 
   const Date = await tasks.find({ idUser: idUser }).sort({order:1});
-  res.json({
+  res.status(200).json({
     Data: Date,
   });
 };
@@ -93,6 +93,8 @@ export const saveDelete = async (idTask) => {
       idUser: task.idUser,
       title: task.title,
       Description: task.Description,
+      State: task.State,
+      order: task.order
     });
     const save = await saveDeletes.save();
   } catch (error) {
@@ -108,7 +110,7 @@ export const getUserTasksDelete = async (req, res) => {
   const { idUser } = User;
   const Date = await TasksDeltes.find({ idUser: idUser });
 
-  res.json({
+  res.status(200).json({
     Data: Date,
   });
 };

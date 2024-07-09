@@ -21,6 +21,10 @@ const TasksDelete = new mongoose.Schema({
      State:{
         type:Boolean,
         require:true
+     },
+     order:{
+      type:Number,
+      require:true
      }
 })
 

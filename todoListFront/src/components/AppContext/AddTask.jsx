@@ -19,7 +19,7 @@ export const AddTask = () => {
   };
 
   return (
-    <div className="w-[48%]  bg-slate-50 p-14 rounded-lg border border-black">
+    <div className=" w-full p-14 bg-slate-50  rounded-lg border border-black lg:w-[48%] ">
       <h1 className="text-2xl font-bold mb-6">Add Task</h1>
       <form onSubmit={onSubmit} className="w-full h-full flex flex-col">
         <p className="font-bold mb-4">Title</p>
@@ -48,7 +48,7 @@ export const AddTask = () => {
         !Description ||
         Description.length <= 6 ||
         Description.length >= 40 ? (
-          <p className="w-full h-14 p-1 bg-red-600 mt-5  rounded-lg flex justify-center items-center text-center text-white">
+          <p className="w-full h-auto max-h-80 p-1 bg-red-600 mt-5  rounded-lg flex justify-center items-center text-center text-white">
             All data is required. The description field must contain a minimum
             of 6 characters and a maximum of 40 characters. This message will be
             deleted if these conditions are met
