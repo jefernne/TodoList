@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import {
   DeleteTask,
   GetAllTask,
+  GetTasksDeleted,
   TaskCompleted,
   UpdateOrder,
   createTasks,
@@ -11,15 +12,16 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [taskCollection, settaskCollection] = useState([]);
+  const [DeletedTasksCollection, setDeletedTasksCollection] = useState([]);
   const [editTask, seteditTask] = useState(0);
-  const [Loaded, setLoaded] = useState("Cargando");
+  const [Loaded, setLoaded] = useState(true);
   const getalltask = async () => {
     const tasks = await GetAllTask();
     if (tasks?.response?.status !== 200 || tasks?.Data?.Data.length === 0) {
       return settaskCollection(null);
     }
-    settaskCollection(tasks?.Data?.Data); 
-    setLoaded("Loadig");
+    settaskCollection(tasks?.Data?.Data);
+  
   };
 
   const createTask = async (task) => {
@@ -40,7 +42,6 @@ export const TaskProvider = ({ children }) => {
       })
     );
     getalltask();
-  
   };
 
   const CompletingTask = async (idTask, task) => {
@@ -48,7 +49,6 @@ export const TaskProvider = ({ children }) => {
       const taskBeingCompleted = await TaskCompleted(idTask, task);
       if (taskBeingCompleted.response.status === 200) {
         getalltask();
-    
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +58,6 @@ export const TaskProvider = ({ children }) => {
   const EditingTask = (idTask) => {
     seteditTask(idTask);
     getalltask();
-  
   };
 
   const updateTask = async (idTask, task) => {
@@ -67,24 +66,32 @@ export const TaskProvider = ({ children }) => {
       console.log(taskToEdit.Data);
       if (taskToEdit.response.status === 200) {
         getalltask();
-  
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const updateOrderTasks =async(tasks)=>{
-    try{
-      console.log(tasks)
-      const TasksOrder=  await UpdateOrder(tasks)
-      
-    }catch(error){
-      console.log(error)
+  const updateOrderTasks = async (tasks) => {
+    try {
+      console.log(tasks);
+      const TasksOrder = await UpdateOrder(tasks);
+    } catch (error) {
+      console.log(error);
     }
-    
-  }
+  };
 
+  const GetDeletedTasks = async () => {
+    const tasks = await GetTasksDeleted();
+    console.log(tasks)
+    if (tasks?.response?.status !== 200 || tasks?.Data?.Data.length === 0) {
+
+      return setDeletedTasksCollection(null);
+    }
+    setDeletedTasksCollection(tasks?.Data?.Data);
+   
+    setLoaded(false);
+  };
   return (
     <TaskContext.Provider
       value={{
@@ -94,12 +101,13 @@ export const TaskProvider = ({ children }) => {
         DeleteTasks,
         Loaded,
         CompletingTask,
-        setLoaded,
         EditingTask,
         editTask,
         updateTask,
         seteditTask,
-        updateOrderTasks
+        updateOrderTasks,
+        GetDeletedTasks,
+        DeletedTasksCollection
       }}
     >
       {children}

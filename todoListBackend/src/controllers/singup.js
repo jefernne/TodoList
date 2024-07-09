@@ -9,7 +9,7 @@ export const posregister = async (req, res) => {
   try {
     console.log(User, Email, Password);
     if (!User || !Email || !Password) {
-      res.status(400).json({ message: "Los campos son requeridos" });
+      res.status(400).json({ message: "The fields are required" });
     }
 
     const passwordHash = await bcrypt.hash(Password, 10);
@@ -19,7 +19,7 @@ export const posregister = async (req, res) => {
     if (ValidateUser) {
       return res
         .status(400)
-        .json({ message: ["El correo Electronico ya Existe"] });
+        .json({ message: ["The email address already exists"] });
     }
 
     const newUser = new singups({
@@ -42,7 +42,7 @@ export const posregister = async (req, res) => {
     };
     res.status(200).json({ message: Confirmed });
   } catch (error) {
-    console.log(`Entoncontramos un error ${error}`);
+    res.status(500).json({message:`There is an error on the server. The error is: ${error}`});
   }
 };
 
@@ -52,15 +52,15 @@ export const postlogin = async (req, res) => {
   
   try {
     if (!Email || !Password) {
-      return res.status(400).json({ message: ["Los campos son requeridos"] });
+      return res.status(400).json({ message: ["The fields are required"] });
     }
     const User = await singups.findOne({ Email: Email });
     if (!User) {
-      return res.status(404).json({ message: ["No se encuentra Regitrado"] });
+      return res.status(404).json({ message: ["Not registered"] });
     }
     const isMatch = await bcrypt.compare(Password, User.Password);
     if (!isMatch) {
-      return res.status(404).json({ message: ["Contraseña Incorrecta"] });
+      return res.status(404).json({ message: ["Incorrect password"] });
     }
 
     const token = await createAccresToken({ idUser: User.idUser });
@@ -74,7 +74,7 @@ export const postlogin = async (req, res) => {
     };
     res.status(200).json({ message: Confirmed });
   } catch (error) {
-    console.log(`Error en login ${error}`);
+    res.status(500).json({message:`There is an error on the server. The error is: ${error}`});
   }
 };
 
@@ -85,7 +85,7 @@ export const logout = (req, res) => {
 
 export const profile = (req, res) => {
   console.log(req.User);
-  res.json({ messaje: "Hola profile" });
+  res.json({ messaje: "Hello profile" });
 };
 
 export const verifyToken = async (req, res) => {

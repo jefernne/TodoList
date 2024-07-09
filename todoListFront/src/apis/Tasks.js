@@ -91,4 +91,16 @@ export const UpdateOrder =async(tasks)=>{
 }
 
 
-
+export const GetTasksDeleted = async () => {
+  const API = "http://localhost:3000/tasksDlete";
+  const option = {
+    credentials: "include",
+  };
+  try {
+    const response = await fetch(API, option);
+    const Data = await response.json();
+    return { Data, response };
+  } catch (error) {
+    console.log(error);
+  }
+};
