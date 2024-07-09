@@ -27,39 +27,41 @@ const CardTask = ({ task, editTask }) => {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-      className="w-full h-64 border flex flex-col justify-between p-8 rounded-lg mt-5"
+      className="w-full h-64 border flex flex-col justify-between p-8 rounded-lg mt-5 "
     >
-      {task.idTask == editTask ? (
-        <form action="w-full h-1/3">
-          <input
-            type="text"
-            value={Title}
-            name="Title"
-            className="text-2xl font-semibold rounded-lg pl-2 border border-gray-300  focus:outline-none focus:ring-0 focus:border-transparent"
-            onChange={inputChange}
-          />
-          <input
-            type="text"
-            name="description"
-            value={description}
-            className="text-slate-500 mt-2 rounded-lg pl-2 border border-gray-300  focus:outline-none focus:ring-0 focus:border-transparent"
-            onChange={inputChange}
-          />
-        </form>
-      ) : (
-        <div className="w-full h-1/3">
-          <h1 className="text-2xl font-semibold">{task.title}</h1>
-          <h2 className="text-slate-500">{task.Description}</h2>
-        </div>
-      )}
+      <div  {...attributes} {...(task.idTask == editTask ? {}:listeners)} className="h-3/4 flex flex-col justify-between">
+        {task.idTask == editTask ? (
+          <form className=" w-2/3 h-1/3 flex flex-col ">
+            <input
+              type="text"
+              value={Title}
+              name="Title"
+              className="text-2xl font-semibold rounded-lg pl-2 border border-gray-300  focus:outline-none focus:ring-0 focus:border-transparent"
+              onChange={inputChange}
+            />
+            <input
+              type="text"
+              name="description"
+              value={description}
+              className="text-slate-500 mt-2 rounded-lg pl-2 border border-gray-300  focus:outline-none focus:ring-0 focus:border-transparent"
+              onChange={inputChange}
+            />
+          </form>
+        ) : (
+          <div className="w-full h-1/3">
+            <h1 className="text-2xl font-semibold">{task.title}</h1>
+            <h2 className="text-slate-500">{task.Description}</h2>
+          </div>
+        )}
 
-      <div className="h-1/3 w-full flex flex-row items-center justify-end">
-        <p className="h-8 w-20 text-stone-50 bg-black rounded-lg flex flex-col items-center justify-center">
-          {task.State === true ? "Complete" : "Pending"}
-        </p>
+        <div className="h-1/3 w-full flex flex-row items-center justify-end">
+          <p className="h-8 w-20 text-stone-50 bg-black rounded-lg flex flex-col items-center justify-center">
+            {task.State === true ? "Complete" : "Pending"}
+          </p>
+        </div>
       </div>
-      <div className="h-1/3 w-full flex flex-row items-center justify-end">
+
+      <div className="h-1/4 w-full flex flex-row   items-center justify-end">
         <button
           onClick={() => {
             DeleteTasks(task.idTask);
@@ -92,6 +94,7 @@ const CardTask = ({ task, editTask }) => {
             Edit
           </button>
         )}
+
         {task.State !== true ? (
           <button
             className={

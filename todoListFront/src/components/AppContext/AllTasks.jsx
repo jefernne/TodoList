@@ -11,12 +11,14 @@ import CardTask from "./componentsApp/CardTask";
 import TopNavigation from "./componentsApp/TopNavigation";
 
 export const AllTasks = () => {
-  const { getalltask, taskCollection, editTask,updateOrderTasks } =
+  const { getalltask, taskCollection, editTask, updateOrderTasks } =
     useContext(TaskContext);
   const [tasks, settasks] = useState([]);
   const [search, setsearch] = useState("");
   const [ActivateFilter, setActivateFilter] = useState(false);
+  const [ActivateFilterOrder, setActivateFilterOder] = useState(false);
   const [Filter, setFilter] = useState("All");
+  const [Order, setOrder] = useState("");
 
   useEffect(() => {
     getalltask();
@@ -62,7 +64,6 @@ export const AllTasks = () => {
             return task.State;
           })
         );
-        break;
     }
   }, [Filter]);
 
@@ -71,13 +72,46 @@ export const AllTasks = () => {
     setFilter(value);
   };
 
-  const CambiarValor = () => {
+  useEffect(() => {
+    switch (Order) {
+      case "All":
+        settasks(taskCollection);
+        break;
+      case "Finished":
+        const sortFinishedsTasks = [...tasks].sort((a, b) => b.State - a.State);
+        settasks(sortFinishedsTasks);
+        break;
+      case "Outstanding":
+        const sortOutstandingTasks = [...tasks].sort(
+          (a, b) => a.State - b.State
+        );
+        settasks(sortOutstandingTasks);
+        break;
+    }
+  }, [Order]);
+
+  const SortByTask = (event) => {
+    const value = event.target.value;
+    setOrder(value);
+  };
+
+  const ChangeValue = () => {
     switch (ActivateFilter) {
       case true:
         setActivateFilter(false);
         break;
       case false:
         setActivateFilter(true);
+        break;
+    }
+  };
+  const ChangeValueSort = () => {
+    switch (ActivateFilterOrder) {
+      case true:
+        setActivateFilterOder(false);
+        break;
+      case false:
+        setActivateFilterOder(true);
         break;
     }
   };
@@ -91,7 +125,11 @@ export const AllTasks = () => {
         const newIndex = tasks.findIndex((task) => task.idTask === over.id);
         const newOrderTasks = arrayMove(tasks, oldIndex, newIndex);
 
-        updateOrderTasks({Tasks: newOrderTasks.map((Task, Index)=>{return ({...Task,order:Index})})})
+        updateOrderTasks({
+          Tasks: newOrderTasks.map((Task, Index) => {
+            return { ...Task, order: Index };
+          }),
+        });
 
         return newOrderTasks;
       });
@@ -102,12 +140,16 @@ export const AllTasks = () => {
     <div className="w-1/2 bg-slate-50 p-6 rounded-lg border border-black ">
       <TopNavigation
         ActivateFilter={ActivateFilter}
-        CambiarValor={CambiarValor}
+        ChangeValue={ChangeValue}
         search={search}
         searchFilter={searchFilter}
         FilterTask={FilterTask}
         Filter={Filter}
         setActivateFilter={setActivateFilter}
+        setActivateFilterOder={setActivateFilterOder}
+        ActivateFilterOrder={ActivateFilterOrder}
+        ChangeValueSort={ChangeValueSort}
+        SortByTask={SortByTask}
       ></TopNavigation>
 
       <div className="overflow-y-auto w-full h-5/6">
