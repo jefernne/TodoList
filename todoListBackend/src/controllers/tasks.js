@@ -9,7 +9,7 @@ export const getUserTasks = async (req, res) => {
   res.status(200).json({
     Data: Date,
   });
-};
+}; 
 
 export const createTask = async (req, res) => {
   const { title, Description } = req.body;
@@ -17,7 +17,7 @@ export const createTask = async (req, res) => {
 
   try {
     if (!title || !Description) {
-      return res.status(400).json({ message: ["los campos son requeridos"] });
+      return res.status(400).json({ message: ["The fields are required"] });
     }
 
     const lastTask = await tasks
@@ -44,7 +44,7 @@ export const createTask = async (req, res) => {
       .status(200)
       .json({ title, Description, idUser: idUser, idTask, State: State });
   } catch (error) {
-    console.log(`Hay un error en el servidor el error es ${error}`);
+    res.status(500).json({message:`There is an error on the server. The error is: ${error}`});
   }
 };
 
@@ -56,7 +56,7 @@ export const DeleteTask = async (req, res) => {
   if (deleteTask.deletedCount === 0) {
     return res
       .status(400)
-      .json({ message: ["Error no se encontro dicha tarea"] });
+      .json({ message: ["Error: Task not found"] });
   }
 
   res.status(200).json({ idTask: idTask });
@@ -67,7 +67,7 @@ export const UpdateTask = async (req, res) => {
   const { title, Description, State } = req.body;
 
   if (!title || !Description) {
-    return res.status(400).json({ message: ["los campos son requeridos"] });
+    return res.status(400).json({ message: ["The fields are required"] });
   }
 
   const stask = await tasks.findOne({ idTask: idTask });
@@ -98,7 +98,7 @@ export const saveDelete = async (idTask) => {
     });
     const save = await saveDeletes.save();
   } catch (error) {
-    console.log("Error");
+    res.status(500).json({message:`There is an error on the server. The error is: ${error}`});
   }
 };
 
@@ -125,8 +125,8 @@ export const UpdateOrder = async (req, res) => {
         { $set: { order: Task.order } }
       );
     }
-    res.status(200).json({message:["Felicitaciones"]});
+    res.status(200).json({message:["Congratulations"]});
   } catch (error) {
-    res.status(500).send("Error actualizando el orden");
+    res.status(500).send("Error updating the order");
   }
 };

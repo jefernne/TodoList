@@ -5,5 +5,5 @@ import { conectDB } from "./database/todolist.js";
 
 conectDB()
 App.listen(PORT, ()=>{
-    console.log(`Se esta escuchando por el puerto ${PORT}`)
+    console.log(`It is listening on the port ${PORT}`)
 })
