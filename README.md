@@ -12,10 +12,14 @@ Welcome to the Task List Application, an intuitive and powerful tool designed to
 
 #### Key Features
 **Comprehensive Task Management :** Create, edit, and delete tasks with ease
-** Drag and Drop Interface :** Organize tasks intuitively using the drag-and-drop functionality
+
+**Drag and Drop Interface :** Organize tasks intuitively using the drag-and-drop functionality
+
 **Filtering and Search :** Quickly find tasks using advanced filtering and search options
-**Data Persistence :**Save and retrieve your tasks from a MongoDB database to ensure you don't lose your information
-** Responsive and Modern Design :** Attractive and adaptable user experience on any device, thanks to Tailwind CSS.
+
+**Data Persistence :** Save and retrieve your tasks from a MongoDB database to ensure you don't lose your information
+
+**Responsive and Modern Design :** Attractive and adaptable user experience on any device, thanks to Tailwind CSS.
 <hr>
 <h2>Technologies Used</h2>
 
