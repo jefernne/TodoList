@@ -11,7 +11,7 @@ const inputChange = ({target})=>{
     [name]:value
  })
 
- console.log(form)
+ 
 }
 const onResetForm = ()=>{
     setform(inputValue)
