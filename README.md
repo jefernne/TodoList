@@ -7,7 +7,7 @@
 - How to Run the Application
 
 <hr>
-##Introduction
+<h3>Introduction</h3>
 Welcome to the Task List Application, an intuitive and powerful tool designed to help you organize and manage your daily activities efficiently. This project integrates a modern frontend developed with React.js and Tailwind CSS, along with a backend based on Node.js and Express, and uses MongoDB as the data storage system.
 
 #### Key Features
@@ -17,8 +17,9 @@ Welcome to the Task List Application, an intuitive and powerful tool designed to
 **Data Persistence :**Save and retrieve your tasks from a MongoDB database to ensure you don't lose your information
 ** Responsive and Modern Design :** Attractive and adaptable user experience on any device, thanks to Tailwind CSS.
 <hr>
-##Technologies Used
- - **Frontend**:
+<h2>Technologies Used</h2>
+
+- **Frontend**:
   - Vite.js
   - React.js
   - Tailwind CSS
@@ -33,16 +34,16 @@ Welcome to the Task List Application, an intuitive and powerful tool designed to
   - Express
   - MongoDB
   -  - Additional Libraries:
-    - `cors`
-    - `mongoose`
-    - `dotenv`
-	- `jsonwebtoken`
-	- `cookie-parser`
-    - `nodemon` (for development)
+     -  `cors`
+     -   `mongoose`
+     -    `dotenv`
+     -  `cookie-parser`
+     -  `sonwebtoken`
+     -  `nodemon` (for development)
 
 
 <hr>
-## Prerequisites
+<h2> Prerequisites </h2>
 
 Before you begin, ensure that you have the following components installed:
 
@@ -61,8 +62,10 @@ Before you begin, ensure that you have the following components installed:
 Ensure these tools are properly installed and configured before proceeding with the project installation steps.
 
 <hr>
-## Installation Steps
-** Clone the Repository :**
+<h2>Installation Steps</h2>
+
+**Clone the Repository :**
+
  `bash`
  `git clone https://github.com/jefernne/TodoList.git`
 
@@ -90,24 +93,21 @@ The project uses the `.env`	 file to store environment variables such as the `Mo
 		 secretOrPrivateKey = jefern123
 
 <hr>
-## How to Run the Application
 
+<h2>How to Run the Application</h2>
 
-
-##### Starting MongoDB
+**Starting MongoDB :**
 For the application to work correctly, MongoDB needs to be running. Make sure that MongoDB is installed on your machine.
 
 Once MongoDB is installed, open a terminal and run the following command to start the MongoDB server:
 
 		 mongod 
 
-
-#####Start the Backend Server
+**Start the Backend Server:**
 Make sure that your terminal is located in the `.\todoListBackend\` directory before starting the backend server. This is the folder where the server files are located and where you should run commands related to the backend.
 
 		 npm run dev
-
-#####Start the Frontend Server
+**Start the Frontend Server:**
 Make sure to open a new terminal and navigate to the `.\todoListFrontend\` directory before starting the frontend server. This is the folder where the frontend files are located and where you should run commands related to the frontend.
 
 		 npm run dev
