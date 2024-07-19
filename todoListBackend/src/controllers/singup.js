@@ -85,7 +85,7 @@ export const logout = (req, res) => {
 
 export const profile = (req, res) => {
   console.log(req.User);
-  res.json({ messaje: "Hello profile" });
+  res.json({ messaje: "exit Hello Profile"});
 };
 
 export const verifyToken = async (req, res) => {
